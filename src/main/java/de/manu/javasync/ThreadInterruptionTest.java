@@ -1,6 +1,6 @@
-package de.manu;
+package de.manu.javasync;
 
-public class Test1 implements ITest {
+public class ThreadInterruptionTest implements ITest {
 
     @Override
     public void test(Main main) {

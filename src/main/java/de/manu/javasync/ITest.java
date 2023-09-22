@@ -1,4 +1,4 @@
-package de.manu;
+package de.manu.javasync;
 
 public interface ITest {
 

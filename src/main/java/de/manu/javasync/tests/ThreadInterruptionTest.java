@@ -9,19 +9,28 @@ public class ThreadInterruptionTest implements ITest {
     public void test(Main main) {
         var thread = new TestThread1();
         thread.start();
-        thread.interrupt();
+
+        try {
+            Thread.sleep(5000);
+            thread.interrupt();
+        } catch (Exception ex) {
+            Main.print("Sleep to interrupt the test-thread was interrupted. Probably not the wanted behavior?");
+        }
     }
 
     private static class TestThread1 extends Thread {
 
         @Override
         public void run() {
-            try {
-                Main.print("Testing 1000ms delay that will be interrupted");
-                Thread.sleep(1000);
-                throw new RuntimeException("1000ms delay wasn't interrupted as expected");
-            } catch (InterruptedException interruptedException) {
-                Main.print("1000ms delay was interrupted");
+            var interrupted = false;
+            while (!interrupted) {
+                try {
+                    Main.print("Hello there");
+                    Thread.sleep(1000);
+                } catch (InterruptedException interruptedException) {
+                    Main.print("1000ms delay was interrupted");
+                    interrupted = true;
+                }
             }
         }
     }

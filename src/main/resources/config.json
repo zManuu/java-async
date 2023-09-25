@@ -1,6 +1,6 @@
 {
   "projectName": "java-async",
   "tests": [
-    "ThreadPool"
+    "ThreadInterruption"
   ]
 }

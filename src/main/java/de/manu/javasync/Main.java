@@ -18,15 +18,15 @@ public class Main {
         try {
             initConfig();
         } catch (Exception e) {
-            System.out.println("Config couldn't be loaded. Stacktrace following...");
-            e.printStackTrace();
+            System.out.println("Config couldn't be loaded.");
             return;
         }
 
         Set<ITest> tests = Set.of(
                 new ThreadInterruptionTest(),
                 new CompletableFutureTest(),
-                new StreamTest()
+                new StreamTest(),
+                new StoreTest()
         );
 
         tests.forEach(e -> {
@@ -42,6 +42,10 @@ public class Main {
 
     private static void initConfig() throws Exception {
         var configUrl = Main.class.getResource("/config.json");
+
+        if (configUrl == null)
+            throw new RuntimeException("configUrl most not be null");
+
         var configPath = Paths.get(configUrl.toURI());
         var configContent = Files.readString(configPath);
         config = gson.fromJson(configContent, Config.class);

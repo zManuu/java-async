@@ -3,7 +3,6 @@ package de.manu.javasync;
 import com.google.gson.Gson;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -16,7 +15,7 @@ public class StoreTest implements ITest {
 
     @Override
     public void test(Main main) {
-        var store = new Store<>(defaultTestStore, null);
+        var store = new Store<>(defaultTestStore, StoreUriProvider.defaultAppDataProvider);
         store.save();
         Main.print(store.get());
         store.get().setName("MANUUUUUUU");
@@ -89,12 +88,8 @@ public class StoreTest implements ITest {
          * @param defaultVal the default / fallback value
          * @param uriProvider the uri-provider for the store. If set to null,
          */
-        public Store(@Nonnull T defaultVal, @Nullable StoreUriProvider uriProvider) {
+        public Store(@Nonnull T defaultVal, @Nonnull StoreUriProvider uriProvider) {
             this.defaultVal = defaultVal;
-
-            // apply default uri-provider
-            if (uriProvider == null)
-                uriProvider = StoreUriProvider.defaultAppDataProviderWithSimpleName;
 
             try {
                 // get fileURI from provider

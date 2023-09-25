@@ -26,7 +26,8 @@ public class Main {
                 new ThreadInterruptionTest(),
                 new CompletableFutureTest(),
                 new StreamTest(),
-                new StoreTest()
+                new StoreTest(),
+                new MultiMapTest()
         );
 
         tests.forEach(e -> {

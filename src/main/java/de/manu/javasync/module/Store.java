@@ -2,7 +2,6 @@ package de.manu.javasync.module;
 
 import com.google.gson.Gson;
 import de.manu.javasync.Main;
-import de.manu.javasync.tests.StoreTest;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -22,6 +21,7 @@ public class Store <T extends Serializable> {
         /**
          * Files are stored in the localappdata directory of the user.
          * They are named after the types name (e.g. de.manu.javasync.tests.StoreTest$TestStore.json).
+         * Note: not ready for usage as it links to {@link de.manu.javasync.Config#projectName}.
          */
         public static final StoreUriProvider defaultAppDataProvider = storeType -> {
             var storeName = storeType.getName();
@@ -35,6 +35,7 @@ public class Store <T extends Serializable> {
          * Files are stored in the localappdata directory of the user.
          * They are named after the types simple name (e.g. TestStore.json).
          * Note: Type named might overlay, in that case, use {@link StoreUriProvider#defaultAppDataProvider}.
+         * Note: not ready for usage as it links to {@link de.manu.javasync.Config#projectName}.
          */
         public static final StoreUriProvider defaultAppDataProviderWithSimpleName = storeType -> {
             var storeName = storeType.getSimpleName();
@@ -51,6 +52,7 @@ public class Store <T extends Serializable> {
     private final T defaultVal;
 
     /**
+     * Initializes a store.
      * @param defaultVal  the default / fallback value
      * @param uriProvider the uri-provider for the store. If set to null,
      */

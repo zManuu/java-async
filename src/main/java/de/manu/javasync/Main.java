@@ -28,7 +28,8 @@ public class Main {
                 new CompletableFutureTest(),
                 new StreamTest(),
                 new StoreTest(),
-                new MultiMapTest()
+                new MultiMapTest(),
+                new ThreadPoolTest()
         );
 
         tests.forEach(e -> {

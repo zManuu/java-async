@@ -41,5 +41,4 @@ public class StoreTest implements ITest {
         }
     }
 
-
 }

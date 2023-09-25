@@ -2,11 +2,14 @@ package de.manu.javasync;
 
 import com.google.gson.Gson;
 import de.manu.javasync.tests.*;
+import org.reflections.Reflections;
 
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -23,14 +26,19 @@ public class Main {
             return;
         }
 
-        Set<ITest> tests = Set.of(
-                new ThreadInterruptionTest(),
-                new CompletableFutureTest(),
-                new StreamTest(),
-                new StoreTest(),
-                new MultiMapTest(),
-                new ThreadPoolTest()
-        );
+        Set<ITest> tests = new Reflections("de.manu.javasync.tests")
+                .getSubTypesOf(ITest.class)
+                .stream()
+                .map(e -> {
+                    try {
+                        return e.getConstructor().newInstance();
+                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                             NoSuchMethodException ex) {
+                        Main.print("Couldn't create test " + e.getName() + ". Exception: " + ex.getCause());
+                        return null;
+                    }
+                })
+                .collect(Collectors.toSet());
 
         tests.forEach(e -> {
             var simpleClassName = e.getClass().getSimpleName();

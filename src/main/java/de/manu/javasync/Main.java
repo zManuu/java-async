@@ -1,6 +1,7 @@
 package de.manu.javasync;
 
 import com.google.gson.Gson;
+import de.manu.javasync.tests.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;

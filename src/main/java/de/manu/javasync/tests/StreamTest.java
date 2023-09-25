@@ -1,4 +1,7 @@
-package de.manu.javasync;
+package de.manu.javasync.tests;
+
+import de.manu.javasync.ITest;
+import de.manu.javasync.Main;
 
 import java.util.function.IntSupplier;
 import java.util.function.Predicate;
